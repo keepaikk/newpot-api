@@ -1,13 +1,13 @@
 // Wallet Routes
 import express from 'express';
-import { authenticateToken } from '../middleware/auth';
+import { botAuth } from '../middleware/botAuth';
 import { addTransaction, getUserTransactions } from '../database';
 import { Transaction } from '../types';
 
 const router = express.Router();
 
 // GET /api/wallet/balance - Get user balances
-router.get('/balance', authenticateToken, (req, res) => {
+router.get('/balance', botAuth, (req, res) => {
   try {
     const user = req.user!;
     
@@ -30,7 +30,7 @@ router.get('/balance', authenticateToken, (req, res) => {
 });
 
 // POST /api/wallet/deposit - Simulate deposit
-router.post('/deposit', authenticateToken, (req, res) => {
+router.post('/deposit', botAuth, (req, res) => {
   try {
     const { paymentMethod, amount, currency } = req.body;
     const user = req.user!;
@@ -97,7 +97,7 @@ router.post('/deposit', authenticateToken, (req, res) => {
 });
 
 // POST /api/wallet/withdraw - Simulate withdrawal
-router.post('/withdraw', authenticateToken, (req, res) => {
+router.post('/withdraw', botAuth, (req, res) => {
   try {
     const { paymentMethod, amount, currency, address } = req.body;
     const user = req.user!;
@@ -175,7 +175,7 @@ router.post('/withdraw', authenticateToken, (req, res) => {
 });
 
 // GET /api/wallet/transactions - Get transaction history
-router.get('/transactions', authenticateToken, (req, res) => {
+router.get('/transactions', botAuth, (req, res) => {
   try {
     const transactions = getUserTransactions(req.user!.id);
     

@@ -1,6 +1,6 @@
 // Betting Routes
 import express from 'express';
-import { authenticateToken } from '../middleware/auth';
+import { botAuth } from '../middleware/botAuth';
 import { findMarketById, markets, addPosition, addTransaction, getUserPositions } from '../database';
 import { AMMService } from '../services/ammService';
 import { Position, Transaction } from '../types';
@@ -8,7 +8,7 @@ import { Position, Transaction } from '../types';
 const router = express.Router();
 
 // POST /api/bets - Place a bet
-router.post('/', authenticateToken, (req, res) => {
+router.post('/', botAuth, (req, res) => {
   try {
     const { marketId, side, amount, paymentMethod } = req.body;
     const user = req.user!;
@@ -153,7 +153,7 @@ router.post('/', authenticateToken, (req, res) => {
 });
 
 // GET /api/bets/positions - Get user positions
-router.get('/positions', authenticateToken, (req, res) => {
+router.get('/positions', botAuth, (req, res) => {
   try {
     const positions = getUserPositions(req.user!.id);
     
