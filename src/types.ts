@@ -29,7 +29,7 @@ export interface Market {
   id: string;
   title: string;
   description: string;
-  category: 'Politics' | 'Sports' | 'Entertainment' | 'Crypto' | 'Economy';
+  category: 'Politics' | 'Sports' | 'Entertainment' | 'Crypto' | 'Economy' | 'Religion' | 'Governance';
   endDate: Date;
   isResolved: boolean;
   resolution?: 'YES' | 'NO';
